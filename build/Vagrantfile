@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<SCRIPT
+
+SCRIPT
+
+
+
+Vagrant.configure('2') do |config|
+  config.vm.box = 'chef/debian-7.8'
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.memory = 2096
+    vb.cpus = 4
+  end
+
+  config.vm.synced_folder '../data/kernel', '/root/kernel'
+
+
+  config.vm.define "buildvm" do |buildvm|
+    buildvm.vm.hostname = "build-trill"
+    buildvm.vm.provision 'shell', inline: $script, privileged: true
+  end
+
+end
