@@ -3,6 +3,33 @@
 
 $script = <<SCRIPT
 
+echo "
+======= Use fr.debian.org as repo ======="
+sed -i "s@mirrors.kernel.org@ftp.fr.debian.org@g" /etc/apt/sources.list
+
+echo "
+======= apt-get Update ======="
+apt-get update -y
+
+echo "
+======= Install needed package ======="
+apt-get install -y libncurses5-dev git make gcc dpkg-dev
+
+echo "
+======= Remove kernel source if needed ======="
+if [ -d /root/kernel/ktrill ]
+then
+#  rm -rf /root/kernel/ktrill
+fi
+
+cd /root/kernel
+echo "
+======= Clone ktrill from git ======="
+#git clone https://github.com/Gandi/ktrill.git --depth=1 2>&1
+
+
+
+
 SCRIPT
 
 
